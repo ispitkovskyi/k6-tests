@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vdespa/k6-sample-tests.git'
+            }
+        }
+
+        stage('k6') {
+            agent {
+                docker {
+                    image 'grafana/k6'
+                    args '--entrypoint=""'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'k6 run script.js --quiet'
+            }
+        }
+    }
+}

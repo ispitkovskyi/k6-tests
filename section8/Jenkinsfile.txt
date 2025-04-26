@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    environment {
+        K6_CLOUD_TOKEN = credentials("k6-cloud-token")
+        K6_CLOUD_PROJECT_ID = 3663159
+    }
+
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vdespa/k6-sample-tests.git'
+            }
+        }
+
+        stage('k6') {
+            steps {
+                sh 'k6 cloud script.js --quiet'
+            }
+        }
+    }
+}
