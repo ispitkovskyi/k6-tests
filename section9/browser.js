@@ -25,7 +25,7 @@ export default async function () {
     page.locator('input[name="login"]').type('admin');
     page.locator('input[name="password"]').type('123');
     await page.locator('input[type=submit]').click();
-    await page.waitForNavigation();
+    await page.waitForNavigation(); //Wait for a page to load
 
     page.screenshot({ path: 'screenshots/2-authenticated.png' });
 
