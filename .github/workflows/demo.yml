@@ -13,6 +13,9 @@ on:
 jobs:
   demo-job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
 
     steps:
     - name: Checkout
@@ -33,6 +36,10 @@ jobs:
         STATUS_STATE: ${{ github.event.inputs.status }}
       with:
         script: |
+          core.startGroup('github-script context');
+          core.info(JSON.stringify(context, null, 2));
+          core.endGroup();
+
           const commitSha = process.env.COMMIT_SHA;
           const state = process.env.STATUS_STATE;
           const description = `Post-PR-Env UI Tests ${state}`;
