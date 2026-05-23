@@ -68,7 +68,7 @@ jobs:
               repo: context.repo.repo,
               sha: commitSha,
               state: state,
-              context: 'Post-PR-Env UI Tests',
+              context: 'UI tests passed on PR environment',
               description: description,
               target_url: targetUrl
             });
